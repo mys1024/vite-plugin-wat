@@ -1,6 +1,6 @@
 # vite-plugin-wat
 
-A vite plugin for WebAssembly text format.
+A [Vite](https://vitejs.dev/) plugin for [WebAssembly Text Format](https://webassembly.github.io/spec/core/text/index.html).
 
 ## Usage
 
@@ -36,7 +36,7 @@ import initAddModule from './add.wat?init'
 (await initAddModule({})).exports.add(1, 1) // 2
 ```
 
-NOTE: See [this](https://vitejs.dev/guide/features.html#webassembly) for more information about `?init`.
+**NOTE**: See [this](https://vitejs.dev/guide/features.html#webassembly) for more information about `?init`.
 
 ## License
 
