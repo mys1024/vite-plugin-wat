@@ -38,6 +38,19 @@ import initAddModule from './add.wat?init'
 
 **NOTE**: See [this](https://vitejs.dev/guide/features.html#webassembly) for more information about `?init`.
 
+## TypeScript Support
+
+Create `src/shims.d.ts` with the following content:
+
+```typescript
+declare module '*.wat?init' {
+  const initWasm: (
+    options: WebAssembly.Imports
+  ) => Promise<WebAssembly.Instance>
+  export default initWasm
+}
+```
+
 ## License
 
 MIT
