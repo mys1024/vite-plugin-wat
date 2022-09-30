@@ -2,18 +2,23 @@
 
 A [Vite](https://vitejs.dev/) plugin for [WebAssembly Text Format](https://webassembly.github.io/spec/core/text/index.html).
 
+## Install
+
+```shell
+npm install -D vite-plugin-wat
+```
+
 ## Usage
 
 `vite.config.js`:
 
 ```javascript
+import { defineConfig } from 'vite'
 import Wat from 'vite-plugin-wat'
 
-export default {
-  plugins: [
-    Wat()
-  ]
-}
+export default defineConfig({
+  plugins: [Wat()]
+})
 ```
 
 `src/add.wat`:
@@ -33,7 +38,8 @@ export default {
 
 ```javascript
 import initAddModule from './add.wat?init'
-(await initAddModule({})).exports.add(1, 1) // 2
+const { add } = (await initAddModule({})).exports
+add(1, 1) // 2
 ```
 
 **NOTE**: See [this](https://vitejs.dev/guide/features.html#webassembly) for more information about `?init`.
@@ -49,6 +55,19 @@ declare module '*.wat?init' {
   ) => Promise<WebAssembly.Instance>
   export default initWasm
 }
+```
+
+Use type casting when exporting:
+
+```typescript
+import initAddModule from './add.wat?init'
+
+interface AddModuleExports {
+  add(a: number, b: number): number
+}
+
+const { add } = (await initAddModule({})).exports as unknown as AddModuleExports
+add(1, 1) // 2
 ```
 
 ## License
