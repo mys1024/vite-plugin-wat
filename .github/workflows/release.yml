@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
 
@@ -28,8 +26,14 @@ jobs:
       - name: Install
         run: pnpm install
 
+      - name: Test
+        run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
       - name: Release
-        run: pnpm run release
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
