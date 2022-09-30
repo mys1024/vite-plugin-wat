@@ -18,7 +18,6 @@
     "vite",
     "plugin",
     "wat",
-    "wast",
     "wasm",
     "WebAssembly"
   ],
