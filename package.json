@@ -1,0 +1,56 @@
+{
+  "name": "vite-plugin-wat",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@7.12.2",
+  "description": "A vite plugin for WebAssembly text format.",
+  "author": "mys1024",
+  "license": "MIT",
+  "homepage": "https://github.com/mys1024/vite-plugin-wat#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mys1024/vite-plugin-wat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mys1024/vite-plugin-wat/issues"
+  },
+  "keywords": [
+    "vite",
+    "plugin",
+    "wat",
+    "wast",
+    "wasm",
+    "WebAssembly"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format cjs,esm --clean",
+    "test": "vitest",
+    "release": "vitest run && pnpm build && pnpm publish"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "pathe": "^0.3.8",
+    "wabt": "^1.0.29"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.7.23",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.4",
+    "vitest": "^0.23.4"
+  }
+}
