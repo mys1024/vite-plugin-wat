@@ -38,8 +38,9 @@ export default defineConfig({
 
 ```javascript
 import initAddModule from './add.wat?init'
+
 const { add } = (await initAddModule({})).exports
-add(1, 1) // 2
+console.log(add(1, 2)) // 3
 ```
 
 **NOTE**: See [this](https://vitejs.dev/guide/features.html#webassembly) for more information about `?init`.
@@ -57,7 +58,7 @@ declare module '*.wat?init' {
 }
 ```
 
-Use type casting when exporting:
+Use type casting when exporting WASM module:
 
 ```typescript
 import initAddModule from './add.wat?init'
@@ -67,7 +68,7 @@ interface AddModuleExports {
 }
 
 const { add } = (await initAddModule({})).exports as unknown as AddModuleExports
-add(1, 1) // 2
+console.log(add(1, 2)) // 3
 ```
 
 ## License
