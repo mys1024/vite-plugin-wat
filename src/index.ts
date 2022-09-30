@@ -22,6 +22,9 @@ export default (): Plugin => {
     config: () => ({
       server: { watch: { ignored: [WASM_DIR] } }
     }),
+    buildStart: () => {
+      fse.removeSync(WASM_DIR)
+    },
     resolveId: (id) => {
       if (!isWatId(id))
         return
