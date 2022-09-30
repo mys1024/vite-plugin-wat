@@ -58,7 +58,7 @@ declare module '*.wat?init' {
 }
 ```
 
-Use type casting when exporting WASM module:
+Use type casting when importing from WASM module:
 
 ```typescript
 import initAddModule from './add.wat?init'
@@ -67,7 +67,8 @@ interface AddModuleExports {
   add(a: number, b: number): number
 }
 
-const { add } = (await initAddModule({})).exports as unknown as AddModuleExports
+const { add } = (await initAddModule({}))
+  .exports as unknown as AddModuleExports
 console.log(add(1, 2)) // 3
 ```
 
