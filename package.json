@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-wat",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "pnpm@7.12.2",
   "description": "A Vite plugin for WebAssembly Text Format.",
   "author": "mys1024",
