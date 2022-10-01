@@ -5,25 +5,26 @@ import fse from 'fs-extra'
 import { wat2wasm } from './wabt'
 
 const WAT_ID_REG = /\.wat\?init$/
-const CWD = resolve(process.cwd())
-const WASM_DIR = resolve(CWD, 'node_modules/.vite-plugin-wat/wasm')
 
 function isWatId(id: string): boolean {
   return WAT_ID_REG.test(id)
 }
 
-function resolveWasmId(watId: string) {
-  return resolve(WASM_DIR, relative(CWD, watId).replace(WAT_ID_REG, '.wasm'))
+function resolveWasmId(watId: string, cwd: string, wasmDir: string) {
+  return resolve(wasmDir, relative(cwd, watId).replace(WAT_ID_REG, '.wasm'))
 }
 
 export default (): Plugin => {
+  const cwd = resolve('./')
+  const storeDir = resolve(cwd, 'node_modules', '.vite-plugin-wat')
+  const wasmDir = resolve(storeDir, 'wasm')
   return {
     name: 'vite-plugin-wat',
     config: () => ({
-      server: { watch: { ignored: [WASM_DIR] } },
+      server: { watch: { ignored: [wasmDir] } },
     }),
     buildStart: () => {
-      fse.removeSync(WASM_DIR)
+      fse.removeSync(wasmDir)
     },
     resolveId: (id) => {
       return isWatId(id) ? id : undefined
@@ -31,10 +32,10 @@ export default (): Plugin => {
     transform: async (code, id) => {
       if (!isWatId(id))
         return
-      const wasmId = resolveWasmId(id)
+      const wasmId = resolveWasmId(id, cwd, wasmDir)
       await fse.ensureFile(wasmId)
       await fse.writeFile(wasmId, await wat2wasm(code))
-      return `import initWasm from '${wasmId}?init';\nexport default initWasm;`
+      return `export { default } from '${wasmId}?init';`
     },
   }
 }

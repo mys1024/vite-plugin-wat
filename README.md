@@ -50,11 +50,10 @@ console.log(add(1, 2)) // 3
 Create `src/shims.d.ts` with the following content:
 
 ```typescript
+/// <reference types="vite/client" />
+
 declare module '*.wat?init' {
-  const initWasm: (
-    options: WebAssembly.Imports
-  ) => Promise<WebAssembly.Instance>
-  export default initWasm
+  export { default } from '*.wasm?init'
 }
 ```
 
