@@ -1,7 +1,7 @@
 import type { Plugin } from 'vite'
-
+import { relative, resolve } from 'pathe'
 import fse from 'fs-extra'
-import { resolve, relative } from 'pathe'
+
 import { wat2wasm } from './wabt'
 
 const WAT_ID_REG = /\.wat\?init$/
@@ -20,7 +20,7 @@ export default (): Plugin => {
   return {
     name: 'vite-plugin-wat',
     config: () => ({
-      server: { watch: { ignored: [WASM_DIR] } }
+      server: { watch: { ignored: [WASM_DIR] } },
     }),
     buildStart: () => {
       fse.removeSync(WASM_DIR)
@@ -35,6 +35,6 @@ export default (): Plugin => {
       await fse.ensureFile(wasmId)
       await fse.writeFile(wasmId, await wat2wasm(code))
       return `import initWasm from '${wasmId}?init';\nexport default initWasm;`
-    }
+    },
   }
 }
