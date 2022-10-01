@@ -26,9 +26,7 @@ export default (): Plugin => {
       fse.removeSync(WASM_DIR)
     },
     resolveId: (id) => {
-      if (!isWatId(id))
-        return
-      return id
+      return isWatId(id) ? id : undefined
     },
     transform: async (code, id) => {
       if (!isWatId(id))
