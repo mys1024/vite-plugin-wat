@@ -3,7 +3,6 @@ import './style.css'
 
 interface AddModuleExports {
   add(a: number, b: number): number
-  addAndMul(a: number, b: number, c: number): number
 }
 
 // import from WASM module
