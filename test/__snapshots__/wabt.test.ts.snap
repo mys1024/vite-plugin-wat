@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`base64 encoding > wat2wasm 1`] = `
+exports[`wat2wasm > compiling 1`] = `
 Uint8Array [
   0,
   97,
