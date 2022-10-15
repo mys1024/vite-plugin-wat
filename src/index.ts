@@ -28,9 +28,6 @@ export default (): Plugin => {
     buildStart: () => {
       fse.removeSync(wasmDir)
     },
-    resolveId: (id) => {
-      return isWatId(id) ? id : undefined
-    },
     transform: async (code, id) => {
       if (!isWatId(id))
         return
